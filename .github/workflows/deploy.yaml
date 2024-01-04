@@ -54,6 +54,7 @@ jobs:
           echo $containerId &&
           echo $imageId &&
           if [ $containerId ]; then
+              echo "miro2" &&
               sudo docker stop ${{ env.IMAGE_NAME }} &&
               sudo docker rm ${{ env.IMAGE_NAME }} &&
               sudo docker rmi $imageId
