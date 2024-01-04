@@ -52,7 +52,9 @@ jobs:
               echo "miro2" &&
               sudo docker stop ${{ env.IMAGE_NAME }} &&
               sudo docker rm ${{ env.IMAGE_NAME }} &&
-              sudo docker rmi $(sudo docker inspect -f '{{.Image}}' $(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}))
+              ID=$(sudo docker inspect -f '{{.Image}}' $(sudo docker ps -q -f name=${{ env.IMAGE_NAME }})) &&
+              echo "ID=$ID" >> $GITHUB_ENV &&
+              sudo docker rmi ${{ env.ID }}
           fi &&
           sudo docker image pull ${{ steps.meta.outputs.tags }} &&
           sudo docker container run --name ${{ env.IMAGE_NAME }} -d -p 3000:3000 ${{ steps.meta.outputs.tags }}"
