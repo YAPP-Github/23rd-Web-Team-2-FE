@@ -50,7 +50,10 @@ jobs:
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
           containerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
           imageId=$(sudo docker inspect -f '{{.Image}}' $containerId) &&
-          if [ \containerId ]; then
+          echo "miro" &&
+          echo $containerId &&
+          echo $imageId &&
+          if [ $containerId ]; then
               sudo docker stop ${{ env.IMAGE_NAME }} &&
               sudo docker rm ${{ env.IMAGE_NAME }} &&
               sudo docker rmi $imageId
