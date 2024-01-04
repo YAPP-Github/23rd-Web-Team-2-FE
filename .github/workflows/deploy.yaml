@@ -51,8 +51,8 @@ jobs:
           ContainerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
           ImageId=$(sudo docker inspect -f '{{.Image}}' $containerId) &&
           echo "miro" &&
-          echo $(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
-          echo $(sudo docker inspect -f '{{.Image}}' $containerId) &&
+          echo "$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }})" &&
+          echo "$(sudo docker inspect -f '{{.Image}}' $containerId)" &&
           echo $ContainerId &&
           echo $ImageId &&
           if [ $ContainerId ]; then
