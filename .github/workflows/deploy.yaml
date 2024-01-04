@@ -3,7 +3,7 @@ name: Create and publish a Docker image to AWS ECR ans deploy to EC2
 on:
   push:
     branches:
-      - main
+      - feature/BAR-140
 
 env:
   REGISTRY: ${{ secrets.AWS_ECR_REGISTRY }}
@@ -48,9 +48,12 @@ jobs:
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_DOMAIN }} "
           aws ecr get-login-password --region ap-northeast-2 |
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
-          if [ \$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) ]; then
+          containerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
+          imageId=$(sudo docker inspect -f '{{.Image}}' $containerId) &&
+          if [ \containerId ]; then
               sudo docker stop ${{ env.IMAGE_NAME }} &&
-              sudo docker rm ${{ env.IMAGE_NAME }}
+              sudo docker rm ${{ env.IMAGE_NAME }} &&
+              sudo docker rmi $imageId
           fi &&
           sudo docker image pull ${{ steps.meta.outputs.tags }} &&
           sudo docker container run --name ${{ env.IMAGE_NAME }} -d -p 3000:3000 ${{ steps.meta.outputs.tags }}"
