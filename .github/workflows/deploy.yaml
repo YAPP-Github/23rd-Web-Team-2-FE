@@ -48,12 +48,12 @@ jobs:
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_DOMAIN }} "
           aws ecr get-login-password --region ap-northeast-2 |
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
-          containerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
-          imageId=$(sudo docker inspect -f '{{.Image}}' $containerId) &&
+          ContainerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
+          ImageId=$(sudo docker inspect -f '{{.Image}}' $containerId) &&
           echo "miro" &&
-          echo $containerId &&
-          echo $imageId &&
-          if [ $containerId ]; then
+          echo $ContainerId &&
+          echo $ImageId &&
+          if [ $ContainerId ]; then
               echo "miro2" &&
               sudo docker stop ${{ env.IMAGE_NAME }} &&
               sudo docker rm ${{ env.IMAGE_NAME }} &&
