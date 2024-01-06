@@ -49,6 +49,8 @@ jobs:
           aws ecr get-login-password --region ap-northeast-2 |
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
           echo "chk" &&
+          MY_VAR="After login" &&
+          echo $MY_VAR &&
           echo "Miro=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }})" >> $GITHUB_ENV &&
           echo "${{ env.Miro }}" && 
           echo "The result of docker ps is: ${containerId}" &&
