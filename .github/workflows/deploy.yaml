@@ -50,9 +50,8 @@ jobs:
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
           echo "chk" &&
           if [ \$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) ]; then
-              echo "miro2" &&
               sudo docker stop ${{ env.IMAGE_NAME }} &&
-              sudo docker rm ${{ env.IMAGE_NAME }} &&
+              sudo docker rm ${{ env.IMAGE_NAME }}
           fi &&
           sudo docker image pull ${{ steps.meta.outputs.tags }} &&
           sudo docker container run --name ${{ env.IMAGE_NAME }} -d -p 3000:3000 ${{ steps.meta.outputs.tags }}"
