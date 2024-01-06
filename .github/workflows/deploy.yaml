@@ -48,10 +48,8 @@ jobs:
           ssh -i private_key.pem -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_DOMAIN }} "
           aws ecr get-login-password --region ap-northeast-2 |
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
-          containerId=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) &&
-          testMiro="testtest" &&
-          echo ${testMiro} &&
           echo "Miro=$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }})" >> $GITHUB_ENV &&
+          echo "chk" &&
           echo "${{ env.Miro }}" && 
           echo "The result of docker ps is: ${containerId}" &&
           if [ \$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) ]; then
