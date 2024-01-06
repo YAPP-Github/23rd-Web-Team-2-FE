@@ -49,7 +49,10 @@ jobs:
           aws ecr get-login-password --region ap-northeast-2 |
           sudo docker login --username AWS --password-stdin ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} &&
           echo "chk" &&
+          echo ${{ env.IMAGE_NAME }} &&
           if [ \$(sudo docker ps -q -f name=${{ env.IMAGE_NAME }}) ]; then
+              echo "chk2" &&
+              echo ${{ env.IMAGE_NAME }} &&
               sudo docker stop ${{ env.IMAGE_NAME }} &&
               sudo docker rm ${{ env.IMAGE_NAME }}
           fi &&
