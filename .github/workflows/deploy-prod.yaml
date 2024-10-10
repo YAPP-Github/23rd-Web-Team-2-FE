@@ -1,6 +1,7 @@
 name: Create and publish a Docker image to AWS ECR ans deploy to EC2
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
